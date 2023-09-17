@@ -5,6 +5,8 @@
 from os import getenv
 
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+
 from models.base_model import Base
 
 HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
@@ -56,3 +58,26 @@ class DBStorage:
                     # row.to_dict()
                     result.update({key: row})
         return result
+
+    def new(self, obj):
+        """ add object to current database session """
+        self.__session.add(obj)
+
+    def save(self):
+        """ commit current database session """
+        self.__session.commit()
+
+    def delete(self, obj=None):
+        """ delete an element in the table """
+        if obj:
+            self.session.delete(obj)
+
+    def reload(self):
+        """ create database session """
+        Base.metadata.create_all(self.__engine)
+        session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        self.__session = scoped_session(session)
+
+    def close(self):
+        """ close scoped session """
+        self.__session.close()
