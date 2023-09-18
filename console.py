@@ -5,9 +5,9 @@ import sys
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.state import State
+from models.city import City
 # from models.user import User
 # from models.place import Place
-# from models.city import City
 # from models.amenity import Amenity
 # from models.review import Review
 import shlex
@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         "State": State,
         # "User": User,
         # "Place": Place,
-        # "City": City,
+        "City": City,
         # "Amenity": Amenity,
         # "Review": Review,
     }
