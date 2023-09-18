@@ -154,6 +154,19 @@ class HBNBCommand(cmd.Cmd):
         if args[0] in self.classes:
             new_dict = self._key_value_parser(args[1:])
             instance = self.classes[args[0]](**new_dict)
+            for pair in args[1:]:
+                pair_split = pair.split("=")
+                if hasattr(instance, pair_split[0]):
+                    value = pair_split[1].strip('"')
+                    value = value.replace("\\", "")
+                    value = value.replace("_", " ")
+                    if "." in value:
+                        setattr(instance, pair_split[0], float(value))
+                    else:
+                        try:
+                            setattr(instance, pair_split[0], int(value))
+                        except:
+                            setattr(instance, pair_split[0], value)
         else:
             print("** class doesn't exist **")
             return False
