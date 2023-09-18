@@ -5,7 +5,7 @@ from os import environ
 from models.base_model import BaseModel
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey
-from models.state import State
+# from models.state import State
 
 
 class City(BaseModel):
