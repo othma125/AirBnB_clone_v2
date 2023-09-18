@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel
 from sqlalchemy import Column, String, ForeignKey
 import models
 
 
-class Review(BaseModel, Base):
+class Review(BaseModel, models.Base):
     """Review classto store review information"""
 
     if models.storage_engine == "db":

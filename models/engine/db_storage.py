@@ -7,7 +7,6 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from models.base_model import Base
 
 HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
@@ -29,8 +28,9 @@ class DBStorage:
             HBNB_MYSQL_HOST,
             HBNB_MYSQL_DB), pool_pre_ping=True)
         env = getenv("HBNB_ENV")
-        if env == "test":
-            Base.metadata.drop_all(self.__engine)
+        # if env == "test":
+        from models import Base
+        Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """list all instances of cls
@@ -74,6 +74,8 @@ class DBStorage:
 
     def reload(self):
         """ create database session """
+
+        from models import Base
         Base.metadata.create_all(self.__engine)
         session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session)

@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """This module defines a class User"""
 import models
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
-class User(BaseModel, Base):
+class User(BaseModel, models.Base):
     """This class defines a user by various attributes"""
 
     if models.storage_engine == "db":
