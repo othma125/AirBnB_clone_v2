@@ -8,6 +8,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from models.base_model import Base
+from models.city import City
+from models.review import Review
+from models.state import State
+from models.user import User
+from models.place import Place
+from models.amenity import Amenity
 
 HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
@@ -30,7 +36,6 @@ class DBStorage:
             HBNB_MYSQL_DB), pool_pre_ping=True)
         env = getenv("HBNB_ENV")
         if env == "test":
-            from models import Base
             Base.metadata.create_all(self.__engine)
 
     def all(self, cls=None):
@@ -38,20 +43,16 @@ class DBStorage:
         """
         result = {}
         if cls:
+            if type(cls) is str:
+                cls = eval(cls)
             for row in self.__session.query(cls).all():
                 key = f"{cls.__name__}.{row.id}"
                 result.update({key: row})
         else:
-            from models.city import City
-            from models.review import Review
-            from models.state import State
-            from models.user import User
-            from models.place import Place
-            from models.amenity import Amenity
             classes_dict = {"states": State, "cities": City,
                             "users": User, "places": Place,
                             "reviews": Review, "amenities": Amenity}
-            for table in classes_dict:
+            for table in classes_dict.values():
                 cls = classes_dict[table]
                 for row in self.__session.query(cls).all():
                     key = f"{cls.__name__}.{row.id}"
