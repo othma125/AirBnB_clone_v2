@@ -9,16 +9,16 @@ import os
 
 
 class test_basemodel(unittest.TestCase):
-    """ """
+    """ Test for BaseModel """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initialize """
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
 
     def setUp(self):
-        """ """
+        """ Setup """
         pass
 
     def tearDown(self):
@@ -28,19 +28,19 @@ class test_basemodel(unittest.TestCase):
             pass
 
     def test_default(self):
-        """ """
+        """ default """
         i = self.value()
         self.assertEqual(type(i), self.value)
 
     def test_kwargs(self):
-        """ """
+        """ kwargs """
         i = self.value()
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
 
     def test_kwargs_int(self):
-        """ """
+        """ kwargs int """
         i = self.value()
         copy = i.to_dict()
         copy.update({1: 2})
@@ -51,7 +51,7 @@ class test_basemodel(unittest.TestCase):
          
 
     def test_str(self):
-        """ """
+        """  """
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
                          i.__dict__))
@@ -88,4 +88,4 @@ class test_basemodel(unittest.TestCase):
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
         new = BaseModel(**n)
-        #self.assertFalse(new.created_at == new.updated_at)
+        self.assertFalse(new.created_at == new.updated_at)
