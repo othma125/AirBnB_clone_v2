@@ -73,17 +73,17 @@ class test_basemodel(unittest.TestCase):
         n = {'Name': 'test'} 
 
     def test_id(self):
-        """ """
+        """ id """
         new = self.value()
         self.assertEqual(type(new.id), str)
 
     def test_created_at(self):
-        """ """
+        """ created_at """
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
 
     def test_updated_at(self):
-        """ """
+        """ updated_at """
         new = self.value()
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
