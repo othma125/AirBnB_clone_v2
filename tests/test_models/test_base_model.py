@@ -51,25 +51,25 @@ class test_basemodel(unittest.TestCase):
          
 
     def test_str(self):
-        """  """
+        """ str  """
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
                          i.__dict__))
 
     def test_todict(self):
-        """ """
+        """ to_dict """
         i = self.value()
         n = i.to_dict()
         self.assertEqual(i.to_dict(), n)
 
     def test_kwargs_none(self):
-        """ """
+        """ kwargs none """
         n = {None: None}
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
     def test_kwargs_one(self):
-        """ """
+        """ kwargs one """
         n = {'Name': 'test'} 
 
     def test_id(self):
