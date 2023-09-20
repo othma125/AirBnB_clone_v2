@@ -5,10 +5,10 @@ from models.review import Review
 
 
 class test_review(test_basemodel):
-    """ """
+    """ test for review """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initialize """
         super().__init__(*args, **kwargs)
         self.name = "Review"
         self.value = Review
