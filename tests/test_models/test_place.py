@@ -49,12 +49,12 @@ class test_Place(test_basemodel):
         self.assertEqual(type(new.max_guest), int)
 
     def test_price_by_night(self):
-        """ """
+        """ test price by night """
         new = self.value()
         self.assertEqual(type(new.price_by_night), int)
 
     def test_latitude(self):
-        """ """
+        """ test latitude """
         new = self.value()
         self.assertEqual(type(new.latitude), float)
 
