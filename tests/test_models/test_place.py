@@ -29,22 +29,22 @@ class test_Place(test_basemodel):
         self.assertEqual(type(new.name), str)
 
     def test_description(self):
-        """ """
+        """ test description """
         new = self.value()
         self.assertEqual(type(new.description), str)
 
     def test_number_rooms(self):
-        """ """
+        """ test number of rooms """
         new = self.value()
         self.assertEqual(type(new.number_rooms), int)
 
     def test_number_bathrooms(self):
-        """ """
+        """ test number of bathrooms """
         new = self.value()
         self.assertEqual(type(new.number_bathrooms), int)
 
     def test_max_guest(self):
-        """ """
+        """ test max guest """
         new = self.value()
         self.assertEqual(type(new.max_guest), int)
 
