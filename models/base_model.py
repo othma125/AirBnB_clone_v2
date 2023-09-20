@@ -55,8 +55,9 @@ class BaseModel:
         update latest updation time of a model
         """
         self.updated_at = datetime.now()
-        models.storage.new(self)
-        models.storage.save()
+        if environ.get("HBNB_TYPE_STORAGE") != "db":
+            models.storage.new(self)
+            models.storage.save()
 
     def to_dict(self):
         """
