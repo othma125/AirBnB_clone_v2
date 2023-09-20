@@ -8,13 +8,13 @@ class test_Place(test_basemodel):
     """ test for place """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initialize """
         super().__init__(*args, **kwargs)
         self.name = "Place"
         self.value = Place
 
     def test_city_id(self):
-        """ """
+        """ test city id """
         new = self.value()
         self.assertEqual(type(new.city_id), str)
 
