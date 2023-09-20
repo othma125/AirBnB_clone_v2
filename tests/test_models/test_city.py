@@ -8,7 +8,7 @@ class test_City(test_basemodel):
     """ test for city """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ initialize """
         super().__init__(*args, **kwargs)
         self.name = "City"
         self.value = City
