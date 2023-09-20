@@ -9,81 +9,78 @@ import os
 
 
 class test_basemodel(unittest.TestCase):
-    """ Test for BaseModel """
+    """Test for BaseModel"""
 
     def __init__(self, *args, **kwargs):
-        """ initialize """
+        """initialize"""
         super().__init__(*args, **kwargs)
-        self.name = 'BaseModel'
+        self.name = "BaseModel"
         self.value = BaseModel
 
     def setUp(self):
-        """ Setup """
+        """Setup"""
         pass
 
     def tearDown(self):
         try:
-            os.remove('file.json')
+            os.remove("file.json")
         except FileNotFoundError:
             pass
 
     def test_default(self):
-        """ default """
+        """default"""
         i = self.value()
         self.assertEqual(type(i), self.value)
 
     def test_kwargs(self):
-        """ kwargs """
+        """kwargs"""
         i = self.value()
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
 
     def test_kwargs_int(self):
-        """ kwargs int """
+        """kwargs int"""
         i = self.value()
         copy = i.to_dict()
         copy.update({1: 2})
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    
-         
-
     def test_str(self):
-        """ str  """
+        """str"""
         i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
+        n = "[{}] ({}) {}".format(self.name, i.id, i.__dict__)
+        self.assertEqual(str(i), n)
 
     def test_todict(self):
-        """ to_dict """
+        """to_dict"""
         i = self.value()
         n = i.to_dict()
         self.assertEqual(i.to_dict(), n)
 
     def test_kwargs_none(self):
-        """ kwargs none """
+        """kwargs none"""
         n = {None: None}
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
     def test_kwargs_one(self):
-        """ kwargs one """
-        n = {'Name': 'test'} 
+        """kwargs one"""
+        n = {"Name": "test"}
 
     def test_id(self):
-        """ id """
+        """id"""
         new = self.value()
         self.assertEqual(type(new.id), str)
 
     def test_created_at(self):
-        """ created_at """
+        """created_at"""
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
 
     def test_updated_at(self):
-        """ updated_at """
+        """updated_at"""
         new = self.value()
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
