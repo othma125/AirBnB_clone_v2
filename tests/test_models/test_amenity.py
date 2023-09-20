@@ -8,7 +8,7 @@ class test_Amenity(test_basemodel):
     """ Test for Amenity """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ Initialize tests """
         super().__init__(*args, **kwargs)
         self.name = "Amenity"
         self.value = Amenity
