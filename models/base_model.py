@@ -7,15 +7,17 @@ from sqlalchemy import Column, String, DateTime
 import models
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base() if environ.get("HBNB_TYPE_STORAGE") == 'db' \
-    else object
+s = environ.get("HBNB_TYPE_STORAGE")
+
+Base = declarative_base() if s == "db" else object
 
 
 class BaseModel:
     """
-        Base class to define all common attributes and methods for
-        other classes
+    Base class to define all common attributes and methods for
+    other classes
     """
+
     id = Column(String(60), primary_key=True, nullable=False)
     now = datetime.utcnow()
     created_at = Column(DateTime, nullable=False, default=now)
@@ -23,16 +25,18 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """
-            initialization of BaseModel
+        initialization of BaseModel
         """
         if kwargs:
             for key in kwargs:
                 if key == "__class__":
                     continue
                 elif key in ("created_at", "updated_at"):
-                    setattr(self, key,
-                            datetime.strptime(kwargs[key],
-                                              "%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(
+                        self,
+                        key,
+                        datetime.strptime(kwargs[key], "%Y-%m-%dT%H:%M:%S.%f"),
+                    )
                 else:
                     setattr(self, key, kwargs[key])
                 self.id = str(uuid4())
@@ -42,13 +46,13 @@ class BaseModel:
 
     def __str__(self):
         """
-            return string representation of a Model
+        return string representation of a Model
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """
-            update latest updation time of a model
+        update latest updation time of a model
         """
         self.updated_at = datetime.now()
         models.storage.new(self)
@@ -56,7 +60,7 @@ class BaseModel:
 
     def to_dict(self):
         """
-            custom representation of a model
+        custom representation of a model
         """
         output_dict = {}
         output_dict.update({"__class__": self.__class__.__name__})
@@ -70,7 +74,6 @@ class BaseModel:
         return output_dict
 
     def delete(self):
-        """ delete the current instance from the storage
-        """
+        """delete the current instance from the storage"""
         key: str = f"{self.__class__.__name__}.{self.id}"
         del models.storage.__objects[key]
