@@ -11,7 +11,7 @@ env.key_filename = "~/.ssh/school"
 
 def do_clean(number=0):
     """deletes out-of-date archives"""
-    local('ls -t ~/AirBnB_Clone_V2/versions/').split()
+    local('ls -t ~/team_projects/AirBnB_clone_v2/versions/').split()
     with cd("/data/web_static/releases"):
         target_R = sudo("ls -t .").split()
     paths = "/data/web_static/releases"
@@ -21,7 +21,7 @@ def do_clean(number=0):
     else:
         num = number
     if len(target_R) > 0:
-        if len(target) == number or len(target) == 0:
+        if len(target_R) == number or len(target) == 0:
             pass
         else:
             cl = target[num:]
