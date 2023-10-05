@@ -13,17 +13,20 @@ def do_deploy(archive_path):
     """
     if os.path.exists(archive_path) is False:
         return False
+    data_path = '/data/web_static/releases/'
+    tmp = archive_path.split('.')[0]
+    name = tmp.split('/')[1]
+    dest = data_path + name
+
     try:
-        arc = archive_path.split("/")
-        base = arc[1].strip('.tgz')
-        put(archive_path, '/tmp/')
-        sudo('mkdir -p /data/web_static/releases/{}'.format(base))
-        main = "/data/web_static/releases/{}".format(base)
-        sudo('tar -xzf /tmp/{} -C {}/'.format(arc[1], main))
-        sudo('rm /tmp/{}'.format(arc[1]))
-        sudo('mv {}/web_static/* {}/'.format(main, main))
-        sudo('rm -rf /data/web_static/current')
-        sudo('ln -s {}/ "/data/web_static/current"'.format(main))
+        put(archive_path, '/tmp')
+        run('mkdir -p {}'.format(dest))
+        run('tar -xzf /tmp/{}.tgz -C {}'.format(name, dest))
+        run('rm -f /tmp/{}.tgz'.format(name))
+        run('mv {}/web_static/* {}/'.format(dest, dest))
+        run('rm -rf {}/web_static'.format(dest))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {} /data/web_static/current'.format(dest))
         return True
-    except ValueError:
+    except Exception:
         return False
