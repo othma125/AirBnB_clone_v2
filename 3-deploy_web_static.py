@@ -8,8 +8,8 @@ import re
 from datetime import datetime
 
 env.user = 'ubuntu'
-env.hosts = ["104.196.155.240", "34.74.146.120"]
-env.key_filename = "~/id_rsa"
+env.hosts = ["54.146.65.131", "18.208.120.199"]
+env.key_filename = "~/.ssh/school"
 
 
 def do_pack():
