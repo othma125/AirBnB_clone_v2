@@ -21,29 +21,30 @@ def install_mysql():
 		sudo('deluser mysql')
 		sudo('rm -rf /var/log/mysql*')
 
-		# Update package information
-		sudo('apt-get update')
+		# # Update package information
+		# sudo('apt-get update')
 
-		# Add the MySQL APT repository
-		run('wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb')
-		sudo('dpkg -i mysql-apt-config_0.8.13-1_all.deb')
+		# # Add the MySQL APT repository for 5.7.25
 
-		# During the installation of the above, a configuration screen appears. 
-		# This needs to be handled manually to select MySQL 5.7.
-		# Assuming you have handled this manually and selected MySQL 5.7...
+		# run('wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb')
+		# sudo('dpkg -i mysql-apt-config_0.8.12-1_all.deb')
 
-		# Update package information again
-		sudo('apt-get update')
+		# # During the installation of the above, a configuration screen appears. 
+		# # This needs to be handled manually to select MySQL 5.7.
+		# # Assuming you have handled this manually and selected MySQL 5.7...
 
-		# Install MySQL server
-		sudo('DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server')
+		# # Update package information again
+		# sudo('apt-get update')
 
-		# You can add the MySQL root password setting and `mysql_secure_installation` automation if desired, but this requires some additional steps and tools like 'expect'.
+		# # Install MySQL server
+		# sudo('DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server')
 
-		# Start and enable MySQL
-		sudo('systemctl start mysql')
-		sudo('systemctl enable mysql')
-		run('mysql --version')
+		# # You can add the MySQL root password setting and `mysql_secure_installation` automation if desired, but this requires some additional steps and tools like 'expect'.
+
+		# # Start and enable MySQL
+		# sudo('systemctl start mysql')
+		# sudo('systemctl enable mysql')
+		# run('mysql --version')
 		return True
 	except Exception:
 		print("Error")
