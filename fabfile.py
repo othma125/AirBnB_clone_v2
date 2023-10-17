@@ -8,18 +8,37 @@ env.user = 'ubuntu'
 env.hosts = ["54.146.65.131", "18.208.120.199"]
 env.key_filename = "~/.ssh/school"
 
+def setup_mysql_user():
+    """Set up MySQL user and permissions."""
 
+
+	# Use the MySQL root password if set, otherwise adjust accordingly
+	mysql_root_password = 'root' 
+
+	# Create the MySQL user
+	command_create_user = "mysql -uroot -p{password} -e \"CREATE USER 'holberton_user'@'localhost' IDENTIFIED BY 'projectcorrection280hbtn';\"".format(password=mysql_root_password)
+	sudo(command_create_user)
+
+	# Grant REPLICATION CLIENT permission
+	command_grant_perm = "mysql -uroot -p{password} -e \"GRANT REPLICATION CLIENT ON *.* TO 'holberton_user'@'localhost';\"".format(password=mysql_root_password)
+	sudo(command_grant_perm)
+
+	# Show the grants for holberton_user
+	command_show_grants = "mysql -uholberton_user -pprojectcorrection280hbtn -e \"SHOW GRANTS FOR 'holberton_user'@'localhost'\""
+	run(command_show_grants)
+
+		
 def install_mysql():
 	"""install mysql server
 	"""
 	try:
 		# Remove any existing MySQL packages
-		sudo('apt-get remove --purge mysql-server mysql-client mysql-common -y')
-		sudo('apt-get autoremove -y')
-		sudo('apt-get autoclean')
-		sudo('rm -rf /etc/mysql /var/lib/mysql')
-		sudo('deluser mysql')
-		sudo('rm -rf /var/log/mysql*')
+		# sudo('apt-get remove --purge mysql-server mysql-client mysql-common -y')
+		# sudo('apt-get autoremove -y')
+		# sudo('apt-get autoclean')
+		# sudo('rm -rf /etc/mysql /var/lib/mysql')
+		# sudo('deluser mysql')
+		# sudo('rm -rf /var/log/mysql*')
 
 		# # Update package information
 		# sudo('apt-get update')
