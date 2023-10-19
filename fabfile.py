@@ -9,11 +9,11 @@ env.hosts = ["54.146.65.131", "18.208.120.199"]
 env.key_filename = "~/.ssh/school"
 
 def setup_mysql_user():
-    """Set up MySQL user and permissions."""
+	"""Set up MySQL user and permissions."""
 
 
 	# Use the MySQL root password if set, otherwise adjust accordingly
-	mysql_root_password = 'root' 
+	mysql_root_password = 'root'
 
 	# Create the MySQL user
 	command_create_user = "mysql -uroot -p{password} -e \"CREATE USER 'holberton_user'@'localhost' IDENTIFIED BY 'projectcorrection280hbtn';\"".format(password=mysql_root_password)
@@ -48,7 +48,7 @@ def install_mysql():
 		# run('wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb')
 		# sudo('dpkg -i mysql-apt-config_0.8.12-1_all.deb')
 
-		# # During the installation of the above, a configuration screen appears. 
+		# # During the installation of the above, a configuration screen appears.
 		# # This needs to be handled manually to select MySQL 5.7.
 		# # Assuming you have handled this manually and selected MySQL 5.7...
 
