@@ -48,8 +48,8 @@ def display_html(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def display_odd_or_even(n):
     """ Display a HTML page only if n is an integer. """
-    return render_template('6-number_odd_or_even.html', n=n,
-                           type='is odd' if n % 2 else 'is even')
+    my_dict = {"n": n, "type": 'is odd' if n % 2 else 'is even'}
+    return render_template('6-number_odd_or_even.html', **my_dict)
 
 
 if __name__ == '__main__':
