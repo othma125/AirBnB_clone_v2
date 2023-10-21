@@ -1,23 +1,18 @@
 #!/usr/bin/python3
-"""
-    module containing user class
-    module containing user class
-"""
+""" holds class User"""
+import models
 from models.base_model import BaseModel, Base
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine, Column, Integer, String
-from os import environ
-
-storage_engine = environ.get("HBNB_TYPE_STORAGE")
+import hashlib
 
 
 class User(BaseModel, Base):
-    """
-        User class for the user
-        User class for the user
-    """
-    if (storage_engine == 'db'):
-        __tablename__ = "users"
+    """Representation of a user """
+    if models.storage_t == 'db':
+        __tablename__ = 'users'
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
@@ -29,3 +24,12 @@ class User(BaseModel, Base):
         password = ""
         first_name = ""
         last_name = ""
+
+    def __init__(self, *args, **kwargs):
+        """initializes user"""
+        if 'password' in kwargs:
+            password = kwargs['password']
+            m = hashlib.md5()
+            m.update(str.encode(password))
+            kwargs['password'] = m.hexdigest()
+        super().__init__(*args, **kwargs)
