@@ -8,9 +8,7 @@ app = Flask(__name__)
 
 
 @app.route('/states', strict_slashes=False)
-#list all states
 @app.route('/states/<id>', strict_slashes=False)
-#list states that match the id
 def states(id=None):
     """display a HTML page that lists states"""
     states = storage.all(State)
