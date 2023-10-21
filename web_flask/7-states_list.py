@@ -2,8 +2,7 @@
 """list of states"""
 from flask import Flask, render_template
 from models import storage
-from models.state import State
-from models.city import City
+from models.state import state
 app = Flask(__name__)
 
 
@@ -11,4 +10,4 @@ app = Flask(__name__)
 def states_list():
 	"""display a HTML page"""
 	states = storage.all(State)
-	return render_template('7-states_list.html', states=states)
+	return render_template('7-states_list.html', states=states.values())
