@@ -1,21 +1,27 @@
 #!/usr/bin/python3
-""" City Module for HBNB project """
-from os import environ
+"""
+    contains City class to represent a city
+    contains City class to represent a city
+"""
 
 from models.base_model import BaseModel, Base
+from models.state import State
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey
-from models.state import State
+from os import environ
+
+storage_engine = environ.get("HBNB_TYPE_STORAGE")
 
 
 class City(BaseModel, Base):
-    """The city class, contains state ID and name"""
+    """ City class :City class to represent a city
+    City class :City class to represent a city"""
 
-    if environ.get("HBNB_TYPE_STORAGE") == "db":
+    if (storage_engine == "db"):
         __tablename__ = "cities"
-        state_id = Column(String(60), ForeignKey(State.id), nullable=False)
+        state_id = Column(String(60), ForeignKey(State.id))
         name = Column(String(128), nullable=False)
         places = relationship("Place", backref="cities")
     else:
-        state_id = ""
         name = ""
+        state_id = ""
